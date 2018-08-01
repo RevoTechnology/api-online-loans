@@ -17,13 +17,14 @@ search: true
 
 # Введение
 
-API Factoring реализовано на протоколе HTTPS на основе JSON запросов.
+API Online Loans реализовано на протоколе HTTPS на основе JSON запросов.
 
-Документация состоит из 3 основных частей:
+Документация состоит из следующих основных частей:
 
 * Описание авторизации, методов API и кодов ошибок.
-* <a href="#db947828e5">Руководство по тестированию</a>.
-* <a href="#guides">Руководство по реализации основных элементов</a>.
+* Описание iFrame Рево.
+* Представление сервиса Рево на сайте.
+* Руководство по тестированию.
 
 # Авторизация
 
@@ -127,7 +128,7 @@ public class Main {
 ## Registration
 
 ```ruby
-POST BASE_URL/factoring/v1/limit/auth?store_id=STORE_ID1&signature=SIGNATURE
+POST https://{BASE_URI}/iframe/v1/auth?store_id=STORE_ID1&signature=SIGNATURE
 ```
 
 Метод возвращает ссылку на iFrame для получения лимита. По завершению формы на адрес указанный в `callback_url` отправляется <a href="#callback_url2">json ответ</a> с результатом решения по лимиту клиента.
@@ -144,21 +145,19 @@ POST BASE_URL/factoring/v1/limit/auth?store_id=STORE_ID1&signature=SIGNATURE
 
 ```jsonnet
 {
-  "callback_url": "https://shop.ru/revo/decision",
-  "redirect_url": "https://shop.ru/revo/redirect",
-  "primary_phone": "9268180621",
-  "primary_email": "ivan@gmail.com",
-  "current_order":
-  {
-    "order_id": "R001233"
-  },
-  "person":
-  {
+    "callback_url": "https://shop.ru/revo/decision",
+    "redirect_url": "https://shop.ru/revo/redirect",
+    "current_order": {
+      "sum": "1.00",
+      "order_id": "R001432f3"
+    },
+    "person": {
     "first_name": "Петр",
     "surname": "Чернышев",
     "patronymic": "Александрович",
-    "birth_date": "15.01.1975"
-  }
+    "birth_date": "15.01.1975",
+    "gender": "male"
+    }
 }
 ```
 
@@ -167,6 +166,7 @@ POST BASE_URL/factoring/v1/limit/auth?store_id=STORE_ID1&signature=SIGNATURE
  |**callback_url**<br> <font color="#939da3">string</font> | <td colspan="2"> URL для ответа от Рево по решению для клиента.
  |**redirect_url**<br> <font color="#939da3">string</font>	| <td colspan="2"> URL для редиректа после нажатия на кнопку/ссылку в форме Рево "Вернуться в интернет магазин".
  |**current_order**<br> <font color="#939da3">object</font> | <td colspan="2"> Объект, содержащий информацию о заказе.
+ |**sum**<br><font color="#939da3">string</font> | <td colspan="2"> Сумма в рублях с копейками. Для метода Registration необходимо передавать 1 рубль.
 <td colspan="2" style="text-align:right">**order_id**<br> <font color="#939da3">string</font> | | Уникальный номер заказа. Не более 255 символов. Можно использовать уникальную случайную строку.
  |**primary_phone**<br> <font color="#939da3">string, *optional*</font> | <td colspan="2"> Номер телефона клиента 10 цифр (без кода страны).
  |**primary_email**<br> <font color="#939da3">string, *optional*</font> | <td colspan="2"> Email клиента.
@@ -182,9 +182,9 @@ POST BASE_URL/factoring/v1/limit/auth?store_id=STORE_ID1&signature=SIGNATURE
 
 ```jsonnet
 {
-  "status": 0,
-  "message": "Payload valid",
-  "iframe_url": "https://r.revoplus.ru/form/v1/af45ef12f4233f"
+    "status": 0,
+    "message": "Payload valid",
+    "iframe_url": "https://demo.revoplus.ru/iframe/v1/form/dc0e610248030127e6767073afbede0bcfc24258"
 }
 ```
 
@@ -201,11 +201,11 @@ POST BASE_URL/factoring/v1/limit/auth?store_id=STORE_ID1&signature=SIGNATURE
 
 ```jsonnet
 {
-  "order_id": "32423",
-  "decision": "approved",
-  "amount": 5000.00,
-  "mobile_phone": "89262341793",
-  "email": "ivan@gmail.com"
+    "order_id": "R107356",
+    "decision": "approved",
+    "amount": "6700.00",
+    "discount_amount": "6100.00",
+    "term": "3"
 }
 ```
 
@@ -215,7 +215,7 @@ POST BASE_URL/factoring/v1/limit/auth?store_id=STORE_ID1&signature=SIGNATURE
 **decision**<br> <font color="#939da3">string</font> | Решение по выдаче рассрочки. При положительном решении - значение `approved` (заявка ожидает финализации). При отрицательном решении - `declined`.
 **amount**<br> <font color="#939da3">float</font> | Сумма в рублях с копейками.
 **mobile_phone**<br> <font color="#939da3">string</font> | Номер телефона клиента 10 цифр (без кода страны).
-**email**<br> <font color="#939da3">string</font> | Номер телефона клиента 10 цифр (без кода страны).
+**term**<br> <font color="#939da3">string</font> | Срок займа.
 **loan_id**  <br> <font color="#939da3">integer</font> | Уникальный номер заказа в системе Рево.
 
 <aside class="success">
