@@ -316,18 +316,12 @@ POST BASE_URL/api/external/v1/client/limit?store_id=STORE_ID1&signature=SIGNATUR
 
 ## Checkout
 ```ruby
-POST BASE_URL/factoring/v1/precheck/auth?store_id=STORE_ID2&signature=SIGNATURE
+POST BASE_URL/online/v2/auth?store_id=STORE_ID2&signature=SIGNATURE
 ```
 
-Метод возвращает ссылку на iFrame для оформления заказа клиента. По завершению формы на адрес указанный в `callback_url` отправляется <a href="#callback_url">json ответ</a> с результатом оформления. В случае успешного оформления, средства в размере `amount` холдируются на счёте клиента в системе Рево.
+Метод возвращает ссылку на iFrame для оформления заказа клиента. По завершению формы на адрес указанный в `callback_url` отправляется <a href="#callback_url">json ответ</a> с результатом оформления. В случае успешного оформления, средства в размере `sum` холдируются на счёте клиента в системе Рево.
 
 В зависимости от информации, которая есть о пользователе в системе Рево, форма будет иметь различное число шагов (для этого нужно передавать `primary_phone`) - см. <a href="#iframe-revo">Описание iFrame REVO</a>.
-
-Для бизнес-моделей, где клиенту необходимо осуществлять предоплату, метод поддерживает 2 способа предоплаты:
-
- * Если предоплата осуществлена до вызова iFrame, то информацию о ней необходимо передавать в `prepayment_amount`.
-
- * Если предоплата должна быть осуществлена после вызова iFrame, то производится соответствующая настройка на стороне Рево. При этом следует параметр `skip_result_page` выставлять как `true` и передавать в `callback_url` адрес страницы предоплаты, на которую будет перенаправлен клиент по завершению оформления в iFrame.
 
 <aside class="success">
 Если клиент уже заполнял личные данные на сайте партнёра, их следует передать в запросе для автозаполнения соответствующих полей формы.
@@ -348,7 +342,7 @@ POST BASE_URL/factoring/v1/precheck/auth?store_id=STORE_ID2&signature=SIGNATURE
     "order_id": "R001233",
     "valid_till": "21.07.2018 12:08:01+03:00",
     "term": 3,
-    "amount": 59499.00,
+    "sum": "59499.00",
     "prepayment_amount": 1000.00
   },
   "person":
@@ -759,165 +753,10 @@ POST BASE_URL/factoring/v1/schedule?store_id=STORE_ID2&signature=SIGNATURE
  `approved` | `declined` | Лимит одобрен, услуга оплаты частями не доступна клиенту (например, сумма заказа превышает лимит). |
  `declined` | `declined` | В лимите отказано по политикам Рево. |
 
-
-## Change
-
-```ruby
-POST BASE_URL/factoring/v1/precheck/change?store_id=STORE_ID2&signature=SIGNATURE
-```
-
-Метод для изменения суммы уже созданного заказа.
-
-### Parameters
-
-> Пример запроса в формате json
-
-```jsonnet
-{
-  "order_id": "R107356",
-  "amount": 59999.00,
-  "cart_items":
-  [{
-    "sku": "1231",
-    "name": "Samsung Note 8",
-    "price": 55999,
-    "quantity": 1
-  }]
-}
-```
-
- | | | |
--:|-:|:-|:-
- |**order_id**<br> <font color="#939da3">string</font> |<td colspan="2"> Уникальный номер заказа. Не более 255 символов.
- |**amount**<br> <font color="#939da3">float</font> |<td colspan="2"> Сумма в рублях с копейками.
- |**cart_items**<br> <font color="#939da3">object</font> |<td colspan="2"> Объект, содержащий массив с информацией о заказе.
-<td colspan="2" style="text-align:right"> **sku**<br> <font color="#939da3">string, *optional*</font> | | Складская учётная единица (stock keeping unit).
-<td colspan="2" style="text-align:right"> **name**<br> <font color="#939da3">string</font> | | Наименование товара.
-<td colspan="2" style="text-align:right"> **price**<br> <font color="#939da3">float</font> | | Цена товара.
-<td colspan="2" style="text-align:right"> **sale_price**<br> <font color="#939da3">float, *optional*</font> | | Цена товара со скидкой (если есть).
-<td colspan="2" style="text-align:right"> **quantity**<br> <font color="#939da3">integer</font> | | Количество товара. Если передано нецелое число, то в форме не отображается.
-<td colspan="2" style="text-align:right"> **brand**<br> <font color="#939da3">string, *optional*</font> | | Бренд товара.
-
-### Response parameters
-
-> Пример ответа при успешном изменении заказа:
-
-```jsonnet
-{
-  "status": 0,
-  "message": "Payload valid",
-  "schedule":
-  [{
-    "date": "01.01.2018",
-    "amount": 2933.33
-  },
-  {
-    "date": "01.02.2018",
-    "amount": 2933.33
-  },
-  {
-    "date": "01.03.2018",
-    "amount": 2933.33
-  }]
-}
-```
-
-| | | |
--:|-:|:-|:-
- |**status**<br> <font color="#939da3">integer</font> |<td colspan="2"> Код ответа.
- |**message**<br> <font color="#939da3">string</font> |<td colspan="2"> Короткое текстовое описание ответа.
- |**schedule**<br> <font color="#939da3">object</font> |<td colspan="2"> Объект, содержащий информацию о графике платежей.
-<td colspan="2" style="text-align:right">**date**<br> <font color="#939da3">string</font> | | Дата платежа в формате `dd.mm.yyyy`.
-<td colspan="2" style="text-align:right">**amount**<br> <font color="#939da3">float</font> | | Сумма платежа в рублях с копейками.
-
-## Cancel
-
-```ruby
-POST BASE_URL/factoring/v1/precheck/cancel?store_id=STORE_ID2&signature=SIGNATURE
-```
-
-Метод для отмены заказа. При отмене у клиента разблокируются ранее захолдированные средства.
-
-### Parameters
-
-> Пример запроса в формате json
-
-```jsonnet
-{
-  "order_id": "R107356"
-}
-```
-
- | |
--:|:-
-**order_id**<br> <font color="#939da3">string</font> | Уникальный номер заказа. Не более 255 символов.
-
-### Response Parameters
-
-> Пример ответа, когда файл успешно подгружен
-
-```jsonnet
-{
-  "status": 0,
-  "message": "Payload valid"
-}
-```
-
- | |
--:|:-
-**status**<br> <font color="#939da3">integer</font> | Код ответа.
-**message**<br> <font color="#939da3">string</font> | Короткое текстовое описание ответа.
-
-## Finish
-
-```ruby
-POST BASE_URL/factoring/v1/precheck/finish?store_id=STORE_ID2&signature=SIGNATURE
-```
-
-Метод для финализации заказа путём передачи договора купли-продажи на обслуживание в Рево. Запрос должен быть отправлен c типом содержимого multipart/form-data. В запросе должны быть указаны два ключа. Первый ключ с названием `body`, в котором должно быть указано тело json запроса. Второй ключ с названием `check`, где прикладывается файл(фискальный документ). `Signature` формируется по основному принципу, без второго ключа.
-
-<aside class="notice">
-При попытке финализации заявки с истекшим сроком `valid_till`, будет вызван метод `cancel`.
-</aside>
-
-### Parameters
-
-> Пример запроса в формате json
-
-```jsonnet
-{
-  "order_id": "R107356",
-  "amount": 6700.00,
-  "check_number": "ZDDS3123F"
-}
-```
-
- | |
--:|:-
-**order_id**<br> <font color="#939da3">string</font> | Уникальный номер заказа. Не более 255 символов.
-**amount**<br> <font color="#939da3">float</font> | Сумма в рублях с копейками.
-**check_number**<br> <font color="#939da3">string</font> | Номер фискального документа в системе партнёра (например, номер чека).
-
-### Response Parameters
-
-> Пример ответа, когда файл успешно подгружен
-
-```jsonnet
-{
-  "status": 0,
-  "message": "Payload valid"
-}
-```
-
- | |
--:|:-
-**status**<br> <font color="#939da3">integer</font> | Код ответа.
-**message**<br> <font color="#939da3">string</font> | Короткое текстовое описание ответа.
-
 ## Return
 
 ```ruby
-POST BASE_URL/factoring/v1/return?store_id=STORE_ID2&signature=SIGNATURE
+POST BASE_URL/online/v1/return?store_id=STORE_ID2&signature=SIGNATURE
 ```
 
 Метод для осуществления процедуры полного или частичного возврата заказа. Возвращать можно только уже финализированный заказ. Если заказ ещё не финализирован, вместо возврата его необходимо отменить с помощью метода <a href="#cancel">Cancel</a>. Частичный возврат можно провести не ранее, чем на следующий день после финализации. При возврате средства на счёт клиента зачисляются в полном объёме, включая переплаты, если клиент уже совершал платежи для погашения рассрочки.
@@ -1195,57 +1034,6 @@ puts data
 
 Тело JSON:
 `{"callback_url":"https://shop.ru/revo/decision","redirect_url":"https://shop.ru/revo/redirect","primary_phone":"9268180621","primary_email":"ivan@gmail.com","current_order":{"order_id":"R001233"}}`
-
-
-
-### Подробное описание отправки запроса на финализацию заказа
-
-> Пример формирования signature на ruby:
-
-```ruby--tab
-data = {order_id: "FACTPRECHR00005384", amount: 4999.0, check_number: "sdfhk"}
- => {:order_id=>"FACTPRECHR00005384", :amount=>4999.0, :check_number=>"sdfhk"}
-data = data.to_json
- => "{\"order_id\":\"FACTPRECHR00005384\",\"amount\":4999.0,\"check_number\":\"sdfhk\"}"
-secret_key = "9fff8c602b08b00323567be0001480f6"
- => "9fff8c602b08b00323567be0001480f6"
-signature = Digest::SHA1.hexdigest(data + secret_key)
- => "70189f8a4f413fcb01c8933cae50f4341fe8fdee"
-2.3.3 :012 > puts data
-{"order_id":"FACTPRECHR00005384","amount":4999.0,"check_number":"sdfhk"}
-
-```
->Пример запроса через REST клиент POSTMAN:
-
-><a href="post_finish.png" target="new"> <img src="post_finish.png"></a>
-
-
-Для финализации заказа используется метод <a href="#finish">finish</a>
-
-Необходимые параметры для финализации заказа:
-
-* базовый URL для тестирования и отладки
-* store_id
-* signature
-
-Описание формирования запрос на финализацию заказа:
-
-* В переменную `data` вводится тело json запроса
-* Переводим   `data` в `json` формат
-* В переменную `secret_key` вводим наименование ключа
-* В переменную  `signature` формируем подпись
-* Выводим тело `json` запроса через команду `puts` для отправки запроса через клиент
-
-Данные для отправки запроса в REST CLIENT:
-
-Используется POST URL:
-`https://demo.revoup.ru/factoring/v1/precheck/finish?store_id=72&signature=70189f8a4f413fcb01c8933cae50f4341fe8fdee`
-
-Тело JSON с key = body:
-`{"order_id":"FACTPRECHR00005384","amount":4999.0,"check_number":"sdfhk"}`
-
-Приложение фискального документа с key = check.
-
 
 
 ## Особенности
