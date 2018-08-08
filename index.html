@@ -1258,105 +1258,63 @@
 </tbody></table>
 <h3 id='response-parameters-5'>Response Parameters</h3>
 <blockquote>
-<p>Пример ответа, когда клиент прошел до конца оформление в Iframe и ожидает ответа по заказу от Партнера</p>
+<p>Пример ответа, когда клиент открыл форму на этапе ввода номера телефона и отображением графика платежей или на экране с вводом персональных данных и подтверждением условий кодом из смс</p>
 </blockquote>
 <pre class="highlight jsonnet tab-jsonnet"><code><span class="p">{</span>
-  <span class="s">"status"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-  <span class="s">"message"</span><span class="p">:</span> <span class="s">"Payload valid"</span><span class="p">,</span>
-  <span class="s">"current_order"</span><span class="p">:</span>
-  <span class="p">{</span>
-    <span class="s">"order_id"</span><span class="p">:</span> <span class="s">"FACTPRECHR00004768"</span><span class="p">,</span>
-    <span class="s">"expired"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-    <span class="s">"status"</span><span class="p">:</span> <span class="s">"hold"</span><span class="p">,</span>
-    <span class="s">"decision"</span><span class="p">:</span> <span class="s">"approved"</span><span class="p">,</span>
-    <span class="s">"amount"</span><span class="p">:</span> <span class="mf">4999.0</span><span class="p">,</span>
-    <span class="s">"term"</span><span class="p">:</span> <span class="mi">3</span>
-  <span class="p">}</span>
+    <span class="s">"status"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s">"message"</span><span class="p">:</span> <span class="s">"Payload valid"</span><span class="p">,</span>
+    <span class="s">"current_order"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">"order_id"</span><span class="p">:</span> <span class="s">"FULLR00002430"</span><span class="p">,</span>
+        <span class="s">"expired"</span><span class="p">:</span> <span class="s">"false"</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
 <blockquote>
-<p>Пример ответа, когда клиент прошел до конца оформления в Iframe, но партнер отменил заказ</p>
+<p>Пример ответа, когда клиент находится на странице фотографирования паспортных данных или на странице отображения графика и подтверждения индивидуальных условий:</p>
 </blockquote>
 <pre class="highlight jsonnet tab-jsonnet"><code><span class="p">{</span>
-  <span class="s">"status"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-  <span class="s">"message"</span><span class="p">:</span> <span class="s">"Payload valid"</span><span class="p">,</span>
-  <span class="s">"current_order"</span><span class="p">:</span>
-  <span class="p">{</span>
-    <span class="s">"order_id"</span><span class="p">:</span> <span class="s">"FACTPRECHR00004768"</span><span class="p">,</span>
-    <span class="s">"expired"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="s">"status"</span><span class="p">:</span> <span class="s">"canceled"</span><span class="p">,</span>
-    <span class="s">"decision"</span><span class="p">:</span> <span class="s">"approved"</span><span class="p">,</span>
-    <span class="s">"amount"</span><span class="p">:</span> <span class="mi">4999</span><span class="p">,</span>
-    <span class="s">"term"</span><span class="p">:</span> <span class="mi">3</span>
-  <span class="p">}</span>
+    <span class="s">"status"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s">"message"</span><span class="p">:</span> <span class="s">"Payload valid"</span><span class="p">,</span>
+    <span class="s">"current_order"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">"order_id"</span><span class="p">:</span> <span class="s">"FULLR00002431"</span><span class="p">,</span>
+        <span class="s">"expired"</span><span class="p">:</span> <span class="s">"false"</span><span class="p">,</span>
+        <span class="s">"decision"</span><span class="p">:</span> <span class="s">"pending"</span><span class="p">,</span>
+        <span class="s">"amount"</span><span class="p">:</span> <span class="s">"4999.00"</span><span class="p">,</span>
+        <span class="s">"discount_amount"</span><span class="p">:</span> <span class="s">"4999.00"</span><span class="p">,</span>
+        <span class="s">"term"</span><span class="p">:</span> <span class="mi">3</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
 <blockquote>
-<p>Пример ответа, когда клиент прошел до конца оформления в Iframe, партнер подтвердил заказ.</p>
+<p>Пример ответа, когда клиент дошел до конца процесса, где отображается информация об успешном совершение покупки.</p>
 </blockquote>
 <pre class="highlight jsonnet tab-jsonnet"><code><span class="p">{</span>
-  <span class="s">"status"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-  <span class="s">"message"</span><span class="p">:</span> <span class="s">"Payload valid"</span><span class="p">,</span>
-  <span class="s">"current_order"</span><span class="p">:</span>
-  <span class="p">{</span>
-    <span class="s">"order_id"</span><span class="p">:</span> <span class="s">"FACTR00004755"</span><span class="p">,</span>
-    <span class="s">"expired"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-    <span class="s">"status"</span><span class="p">:</span> <span class="s">"finished"</span><span class="p">,</span>
-    <span class="s">"decision"</span><span class="p">:</span> <span class="s">"approved"</span><span class="p">,</span>
-    <span class="s">"amount"</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
-    <span class="s">"term"</span><span class="p">:</span> <span class="mi">3</span>
-  <span class="p">}</span>
+    <span class="s">"status"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s">"message"</span><span class="p">:</span> <span class="s">"Payload valid"</span><span class="p">,</span>
+    <span class="s">"current_order"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">"order_id"</span><span class="p">:</span> <span class="s">"FULLR00002431"</span><span class="p">,</span>
+        <span class="s">"expired"</span><span class="p">:</span> <span class="s">"false"</span><span class="p">,</span>
+        <span class="s">"decision"</span><span class="p">:</span> <span class="s">"approved"</span><span class="p">,</span>
+        <span class="s">"amount"</span><span class="p">:</span> <span class="s">"4999.00"</span><span class="p">,</span>
+        <span class="s">"discount_amount"</span><span class="p">:</span> <span class="s">"4999.00"</span><span class="p">,</span>
+        <span class="s">"term"</span><span class="p">:</span> <span class="mi">3</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
 <blockquote>
-<p>Пример ответа, когда произошел отказ по политикам Рево</p>
+<p>Пример ответа, когда клиент дошел до конца процесса, где отображается информация об отказе в одобрении заявки</p>
 </blockquote>
 <pre class="highlight jsonnet tab-jsonnet"><code><span class="p">{</span>
-  <span class="s">"status"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-  <span class="s">"message"</span><span class="p">:</span> <span class="s">"Payload valid"</span><span class="p">,</span>
-  <span class="s">"current_order"</span><span class="p">:</span>
-  <span class="p">{</span>
-    <span class="s">"order_id"</span><span class="p">:</span> <span class="s">"FACTPRECHR00004721"</span><span class="p">,</span>
-    <span class="s">"expired"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="s">"status"</span><span class="p">:</span> <span class="s">"declined"</span><span class="p">,</span>
-    <span class="s">"decision"</span><span class="p">:</span> <span class="s">"declined"</span><span class="p">,</span>
-    <span class="s">"amount"</span><span class="p">:</span> <span class="mi">6498</span><span class="p">,</span>
-    <span class="s">"term"</span><span class="p">:</span> <span class="kc">null</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre>
-<blockquote>
-<p>Пример ответа, когда срок холдирования по заявке истёк. Заявка отменена.</p>
-</blockquote>
-<pre class="highlight jsonnet tab-jsonnet"><code><span class="p">{</span>
-  <span class="s">"status"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-  <span class="s">"message"</span><span class="p">:</span> <span class="s">"Payload valid"</span><span class="p">,</span>
-  <span class="s">"current_order"</span><span class="p">:</span>
-  <span class="p">{</span>
-    <span class="s">"order_id"</span><span class="p">:</span> <span class="s">"FACTPRECHR141531"</span><span class="p">,</span>
-    <span class="s">"expired"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="s">"status"</span><span class="p">:</span> <span class="s">"expired"</span><span class="p">,</span>
-    <span class="s">"decision"</span><span class="p">:</span> <span class="s">"approved"</span><span class="p">,</span>
-    <span class="s">"amount"</span><span class="p">:</span> <span class="mi">9000</span><span class="p">,</span>
-    <span class="s">"term"</span><span class="p">:</span> <span class="mi">3</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre>
-<blockquote>
-<p>Пример ответа, когда клиент успешно прошел оформление в iframe, партнер подтвердил заказ. Был произведен полный возврат.</p>
-</blockquote>
-<pre class="highlight jsonnet tab-jsonnet"><code><span class="p">{</span>
-  <span class="s">"status"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-  <span class="s">"message"</span><span class="p">:</span> <span class="s">"Payload valid"</span><span class="p">,</span>
-  <span class="s">"current_order"</span><span class="p">:</span>
-  <span class="p">{</span>
-    <span class="s">"order_id"</span><span class="p">:</span> <span class="s">"FACTPRECHR00004714"</span><span class="p">,</span>
-    <span class="s">"expired"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="s">"status"</span><span class="p">:</span> <span class="s">"refunded"</span><span class="p">,</span>
-    <span class="s">"decision"</span><span class="p">:</span> <span class="s">"approved"</span><span class="p">,</span>
-    <span class="s">"amount"</span><span class="p">:</span> <span class="mf">734.51</span><span class="p">,</span>
-    <span class="s">"term"</span><span class="p">:</span> <span class="mi">3</span>
-  <span class="p">}</span>
+    <span class="s">"status"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s">"message"</span><span class="p">:</span> <span class="s">"Payload valid"</span><span class="p">,</span>
+    <span class="s">"current_order"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">"order_id"</span><span class="p">:</span> <span class="s">"ORDER-ONLINE-V1-R00002455"</span><span class="p">,</span>
+        <span class="s">"expired"</span><span class="p">:</span> <span class="s">"false"</span><span class="p">,</span>
+        <span class="s">"decision"</span><span class="p">:</span> <span class="s">"declined"</span><span class="p">,</span>
+        <span class="s">"amount"</span><span class="p">:</span> <span class="s">"4999.00"</span><span class="p">,</span>
+        <span class="s">"discount_amount"</span><span class="p">:</span> <span class="s">"4999.00"</span><span class="p">,</span>
+        <span class="s">"term"</span><span class="p">:</span> <span class="mi">3</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
 <table><thead>
