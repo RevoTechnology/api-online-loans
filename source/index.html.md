@@ -619,111 +619,67 @@ POST BASE_URL/factoring/v1/schedule?store_id=STORE_ID2&signature=SIGNATURE
 
 ### Response Parameters
 
- > Пример ответа, когда клиент прошел до конца оформление в Iframe и ожидает ответа по заказу от Партнера
+ > Пример ответа, когда клиент открыл форму на этапе ввода номера телефона и отображением графика платежей или на экране с вводом персональных данных и подтверждением условий кодом из смс
 
  ```jsonnet
 {
-  "status": 0,
-  "message": "Payload valid",
-  "current_order":
-  {
-    "order_id": "FACTPRECHR00004768",
-    "expired": false,
-    "status": "hold",
-    "decision": "approved",
-    "amount": 4999.0,
-    "term": 3
-  }
+    "status": 0,
+    "message": "Payload valid",
+    "current_order": {
+        "order_id": "FULLR00002430",
+        "expired": "false"
+    }
 }
 ```
 
-> Пример ответа, когда клиент прошел до конца оформления в Iframe, но партнер отменил заказ
+> Пример ответа, когда клиент находится на странице фотографирования паспортных данных или на странице отображения графика и подтверждения индивидуальных условий:
 
 ```jsonnet
 {
-  "status": 0,
-  "message": "Payload valid",
-  "current_order":
-  {
-    "order_id": "FACTPRECHR00004768",
-    "expired": true,
-    "status": "canceled",
-    "decision": "approved",
-    "amount": 4999,
-    "term": 3
-  }
+    "status": 0,
+    "message": "Payload valid",
+    "current_order": {
+        "order_id": "FULLR00002431",
+        "expired": "false",
+        "decision": "pending",
+        "amount": "4999.00",
+        "discount_amount": "4999.00",
+        "term": 3
+    }
 }
 ```
 
-> Пример ответа, когда клиент прошел до конца оформления в Iframe, партнер подтвердил заказ.
+> Пример ответа, когда клиент дошел до конца процесса, где отображается информация об успешном совершение покупки.
 
 ```jsonnet
 {
-  "status": 0,
-  "message": "Payload valid",
-  "current_order":
-  {
-    "order_id": "FACTR00004755",
-    "expired": false,
-    "status": "finished",
-    "decision": "approved",
-    "amount": 1000,
-    "term": 3
-  }
+    "status": 0,
+    "message": "Payload valid",
+    "current_order": {
+        "order_id": "FULLR00002431",
+        "expired": "false",
+        "decision": "approved",
+        "amount": "4999.00",
+        "discount_amount": "4999.00",
+        "term": 3
+    }
 }
 ```
 
-> Пример ответа, когда произошел отказ по политикам Рево
+> Пример ответа, когда клиент дошел до конца процесса, где отображается информация об отказе в одобрении заявки
 
 ```jsonnet
 {
-  "status": 0,
-  "message": "Payload valid",
-  "current_order":
-  {
-    "order_id": "FACTPRECHR00004721",
-    "expired": true,
-    "status": "declined",
-    "decision": "declined",
-    "amount": 6498,
-    "term": null
-  }
-}
-```
-
-> Пример ответа, когда срок холдирования по заявке истёк. Заявка отменена.
-
-```jsonnet
-{
-  "status": 0,
-  "message": "Payload valid",
-  "current_order":
-  {
-    "order_id": "FACTPRECHR141531",
-    "expired": true,
-    "status": "expired",
-    "decision": "approved",
-    "amount": 9000,
-    "term": 3
-  }
-}
-```
-
-> Пример ответа, когда клиент успешно прошел оформление в iframe, партнер подтвердил заказ. Был произведен полный возврат.
-
-```jsonnet
-{
-  "status": 0,
-  "message": "Payload valid",
-  "current_order":
-  {
-    "order_id": "FACTPRECHR00004714",
-    "expired": true,
-    "status": "refunded",
-    "decision": "approved",
-    "amount": 734.51,
-    "term": 3
-  }
+    "status": 0,
+    "message": "Payload valid",
+    "current_order": {
+        "order_id": "ORDER-ONLINE-V1-R00002455",
+        "expired": "false",
+        "decision": "declined",
+        "amount": "4999.00",
+        "discount_amount": "4999.00",
+        "term": 3
+    }
 }
 ```
 
