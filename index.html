@@ -255,15 +255,6 @@
                     <a href="#status" class="toc-h2 toc-link" data-title="status">Status</a>
                   </li>
                   <li>
-                    <a href="#change" class="toc-h2 toc-link" data-title="change">Change</a>
-                  </li>
-                  <li>
-                    <a href="#cancel" class="toc-h2 toc-link" data-title="cancel">Cancel</a>
-                  </li>
-                  <li>
-                    <a href="#finish" class="toc-h2 toc-link" data-title="finish">Finish</a>
-                  </li>
-                  <li>
                     <a href="#return" class="toc-h2 toc-link" data-title="return">Return</a>
                   </li>
               </ul>
@@ -717,18 +708,11 @@
 <td style="text-align: left">Статус пользователя. Возможные значения:<br><code>active</code> - пользователю доступна услуга оплаты частями на сумму <code>limit_amount</code>;<br><code>inactive</code> - пользователю не доступна услуга оплаты частями;<br><code>new</code> - новый пользователь, которому доступна услуга оплаты частями на сумму <code>limit_amount</code>.</td>
 </tr>
 </tbody></table>
-<h2 id='checkout'>Checkout</h2><pre class="highlight ruby tab-ruby"><code><span class="no">POST</span> <span class="no">BASE_URL</span><span class="o">/</span><span class="n">factoring</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">precheck</span><span class="o">/</span><span class="n">auth?store_id</span><span class="o">=</span><span class="no">STORE_ID2</span><span class="o">&amp;</span><span class="n">signature</span><span class="o">=</span><span class="no">SIGNATURE</span>
+<h2 id='checkout'>Checkout</h2><pre class="highlight ruby tab-ruby"><code><span class="no">POST</span> <span class="no">BASE_URL</span><span class="o">/</span><span class="n">online</span><span class="o">/</span><span class="n">v2</span><span class="o">/</span><span class="n">auth?store_id</span><span class="o">=</span><span class="no">STORE_ID2</span><span class="o">&amp;</span><span class="n">signature</span><span class="o">=</span><span class="no">SIGNATURE</span>
 </code></pre>
-<p>Метод возвращает ссылку на iFrame для оформления заказа клиента. По завершению формы на адрес указанный в <code>callback_url</code> отправляется <a href="#callback_url">json ответ</a> с результатом оформления. В случае успешного оформления, средства в размере <code>amount</code> холдируются на счёте клиента в системе Рево.</p>
+<p>Метод возвращает ссылку на iFrame для оформления заказа клиента. По завершению формы на адрес указанный в <code>callback_url</code> отправляется <a href="#callback_url">json ответ</a> с результатом оформления. В случае успешного оформления, средства в размере <code>sum</code> холдируются на счёте клиента в системе Рево.</p>
 
 <p>В зависимости от информации, которая есть о пользователе в системе Рево, форма будет иметь различное число шагов (для этого нужно передавать <code>primary_phone</code>) - см. <a href="#iframe-revo">Описание iFrame REVO</a>.</p>
-
-<p>Для бизнес-моделей, где клиенту необходимо осуществлять предоплату, метод поддерживает 2 способа предоплаты:</p>
-
-<ul>
-<li><p>Если предоплата осуществлена до вызова iFrame, то информацию о ней необходимо передавать в <code>prepayment_amount</code>.</p></li>
-<li><p>Если предоплата должна быть осуществлена после вызова iFrame, то производится соответствующая настройка на стороне Рево. При этом следует параметр <code>skip_result_page</code> выставлять как <code>true</code> и передавать в <code>callback_url</code> адрес страницы предоплаты, на которую будет перенаправлен клиент по завершению оформления в iFrame.</p></li>
-</ul>
 
 <aside class="success">
 Если клиент уже заполнял личные данные на сайте партнёра, их следует передать в запросе для автозаполнения соответствующих полей формы.
@@ -747,7 +731,7 @@
     <span class="s">"order_id"</span><span class="p">:</span> <span class="s">"R001233"</span><span class="p">,</span>
     <span class="s">"valid_till"</span><span class="p">:</span> <span class="s">"21.07.2018 12:08:01+03:00"</span><span class="p">,</span>
     <span class="s">"term"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-    <span class="s">"amount"</span><span class="p">:</span> <span class="mf">59499.00</span><span class="p">,</span>
+    <span class="s">"sum"</span><span class="p">:</span> <span class="s">"59499.00"</span><span class="p">,</span>
     <span class="s">"prepayment_amount"</span><span class="p">:</span> <span class="mf">1000.00</span>
   <span class="p">},</span>
   <span class="s">"person"</span><span class="p">:</span>
@@ -1492,253 +1476,10 @@
 <td style="text-align: left">В лимите отказано по политикам Рево.</td>
 </tr>
 </tbody></table>
-<h2 id='change'>Change</h2><pre class="highlight ruby tab-ruby"><code><span class="no">POST</span> <span class="no">BASE_URL</span><span class="o">/</span><span class="n">factoring</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">precheck</span><span class="o">/</span><span class="n">change?store_id</span><span class="o">=</span><span class="no">STORE_ID2</span><span class="o">&amp;</span><span class="n">signature</span><span class="o">=</span><span class="no">SIGNATURE</span>
-</code></pre>
-<p>Метод для изменения суммы уже созданного заказа.</p>
-<h3 id='parameters-6'>Parameters</h3>
-<blockquote>
-<p>Пример запроса в формате json</p>
-</blockquote>
-<pre class="highlight jsonnet tab-jsonnet"><code><span class="p">{</span>
-  <span class="s">"order_id"</span><span class="p">:</span> <span class="s">"R107356"</span><span class="p">,</span>
-  <span class="s">"amount"</span><span class="p">:</span> <span class="mf">59999.00</span><span class="p">,</span>
-  <span class="s">"cart_items"</span><span class="p">:</span>
-  <span class="p">[{</span>
-    <span class="s">"sku"</span><span class="p">:</span> <span class="s">"1231"</span><span class="p">,</span>
-    <span class="s">"name"</span><span class="p">:</span> <span class="s">"Samsung Note 8"</span><span class="p">,</span>
-    <span class="s">"price"</span><span class="p">:</span> <span class="mi">55999</span><span class="p">,</span>
-    <span class="s">"quantity"</span><span class="p">:</span> <span class="mi">1</span>
-  <span class="p">}]</span>
-<span class="p">}</span>
-</code></pre>
-<table><thead>
-<tr>
-<th style="text-align: right"></th>
-<th style="text-align: right"></th>
-<th style="text-align: left"></th>
-<th style="text-align: left"></th>
-</tr>
-</thead><tbody>
-<tr>
-<td style="text-align: right"></td>
-<td style="text-align: right"><strong>order_id</strong><br> <font color="#939da3">string</font></td>
-<td style="text-align: left"><td colspan="2"> Уникальный номер заказа. Не более 255 символов.</td>
-<td style="text-align: left"></td>
-</tr>
-<tr>
-<td style="text-align: right"></td>
-<td style="text-align: right"><strong>amount</strong><br> <font color="#939da3">float</font></td>
-<td style="text-align: left"><td colspan="2"> Сумма в рублях с копейками.</td>
-<td style="text-align: left"></td>
-</tr>
-<tr>
-<td style="text-align: right"></td>
-<td style="text-align: right"><strong>cart_items</strong><br> <font color="#939da3">object</font></td>
-<td style="text-align: left"><td colspan="2"> Объект, содержащий массив с информацией о заказе.</td>
-<td style="text-align: left"></td>
-</tr>
-<tr>
-<td style="text-align: right"><td colspan="2" style="text-align:right"> <strong>sku</strong><br> <font color="#939da3">string, <em>optional</em></font></td>
-<td style="text-align: right"></td>
-<td style="text-align: left">Складская учётная единица (stock keeping unit).</td>
-<td style="text-align: left"></td>
-</tr>
-<tr>
-<td style="text-align: right"><td colspan="2" style="text-align:right"> <strong>name</strong><br> <font color="#939da3">string</font></td>
-<td style="text-align: right"></td>
-<td style="text-align: left">Наименование товара.</td>
-<td style="text-align: left"></td>
-</tr>
-<tr>
-<td style="text-align: right"><td colspan="2" style="text-align:right"> <strong>price</strong><br> <font color="#939da3">float</font></td>
-<td style="text-align: right"></td>
-<td style="text-align: left">Цена товара.</td>
-<td style="text-align: left"></td>
-</tr>
-<tr>
-<td style="text-align: right"><td colspan="2" style="text-align:right"> <strong>sale_price</strong><br> <font color="#939da3">float, <em>optional</em></font></td>
-<td style="text-align: right"></td>
-<td style="text-align: left">Цена товара со скидкой (если есть).</td>
-<td style="text-align: left"></td>
-</tr>
-<tr>
-<td style="text-align: right"><td colspan="2" style="text-align:right"> <strong>quantity</strong><br> <font color="#939da3">integer</font></td>
-<td style="text-align: right"></td>
-<td style="text-align: left">Количество товара. Если передано нецелое число, то в форме не отображается.</td>
-<td style="text-align: left"></td>
-</tr>
-<tr>
-<td style="text-align: right"><td colspan="2" style="text-align:right"> <strong>brand</strong><br> <font color="#939da3">string, <em>optional</em></font></td>
-<td style="text-align: right"></td>
-<td style="text-align: left">Бренд товара.</td>
-<td style="text-align: left"></td>
-</tr>
-</tbody></table>
-<h3 id='response-parameters-6'>Response parameters</h3>
-<blockquote>
-<p>Пример ответа при успешном изменении заказа:</p>
-</blockquote>
-<pre class="highlight jsonnet tab-jsonnet"><code><span class="p">{</span>
-  <span class="s">"status"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-  <span class="s">"message"</span><span class="p">:</span> <span class="s">"Payload valid"</span><span class="p">,</span>
-  <span class="s">"schedule"</span><span class="p">:</span>
-  <span class="p">[{</span>
-    <span class="s">"date"</span><span class="p">:</span> <span class="s">"01.01.2018"</span><span class="p">,</span>
-    <span class="s">"amount"</span><span class="p">:</span> <span class="mf">2933.33</span>
-  <span class="p">},</span>
-  <span class="p">{</span>
-    <span class="s">"date"</span><span class="p">:</span> <span class="s">"01.02.2018"</span><span class="p">,</span>
-    <span class="s">"amount"</span><span class="p">:</span> <span class="mf">2933.33</span>
-  <span class="p">},</span>
-  <span class="p">{</span>
-    <span class="s">"date"</span><span class="p">:</span> <span class="s">"01.03.2018"</span><span class="p">,</span>
-    <span class="s">"amount"</span><span class="p">:</span> <span class="mf">2933.33</span>
-  <span class="p">}]</span>
-<span class="p">}</span>
-</code></pre>
-<table><thead>
-<tr>
-<th style="text-align: right"></th>
-<th style="text-align: right"></th>
-<th style="text-align: left"></th>
-</tr>
-</thead><tbody>
-<tr>
-<td style="text-align: right"></td>
-<td style="text-align: right"><strong>status</strong><br> <font color="#939da3">integer</font></td>
-<td style="text-align: left"><td colspan="2"> Код ответа.</td>
-</tr>
-<tr>
-<td style="text-align: right"></td>
-<td style="text-align: right"><strong>message</strong><br> <font color="#939da3">string</font></td>
-<td style="text-align: left"><td colspan="2"> Короткое текстовое описание ответа.</td>
-</tr>
-<tr>
-<td style="text-align: right"></td>
-<td style="text-align: right"><strong>schedule</strong><br> <font color="#939da3">object</font></td>
-<td style="text-align: left"><td colspan="2"> Объект, содержащий информацию о графике платежей.</td>
-</tr>
-<tr>
-<td style="text-align: right"><td colspan="2" style="text-align:right"><strong>date</strong><br> <font color="#939da3">string</font></td>
-<td style="text-align: right"></td>
-<td style="text-align: left">Дата платежа в формате <code>dd.mm.yyyy</code>.</td>
-</tr>
-<tr>
-<td style="text-align: right"><td colspan="2" style="text-align:right"><strong>amount</strong><br> <font color="#939da3">float</font></td>
-<td style="text-align: right"></td>
-<td style="text-align: left">Сумма платежа в рублях с копейками.</td>
-</tr>
-</tbody></table>
-<h2 id='cancel'>Cancel</h2><pre class="highlight ruby tab-ruby"><code><span class="no">POST</span> <span class="no">BASE_URL</span><span class="o">/</span><span class="n">factoring</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">precheck</span><span class="o">/</span><span class="n">cancel?store_id</span><span class="o">=</span><span class="no">STORE_ID2</span><span class="o">&amp;</span><span class="n">signature</span><span class="o">=</span><span class="no">SIGNATURE</span>
-</code></pre>
-<p>Метод для отмены заказа. При отмене у клиента разблокируются ранее захолдированные средства.</p>
-<h3 id='parameters-7'>Parameters</h3>
-<blockquote>
-<p>Пример запроса в формате json</p>
-</blockquote>
-<pre class="highlight jsonnet tab-jsonnet"><code><span class="p">{</span>
-  <span class="s">"order_id"</span><span class="p">:</span> <span class="s">"R107356"</span>
-<span class="p">}</span>
-</code></pre>
-<table><thead>
-<tr>
-<th style="text-align: right"></th>
-<th style="text-align: left"></th>
-</tr>
-</thead><tbody>
-<tr>
-<td style="text-align: right"><strong>order_id</strong><br> <font color="#939da3">string</font></td>
-<td style="text-align: left">Уникальный номер заказа. Не более 255 символов.</td>
-</tr>
-</tbody></table>
-<h3 id='response-parameters-7'>Response Parameters</h3>
-<blockquote>
-<p>Пример ответа, когда файл успешно подгружен</p>
-</blockquote>
-<pre class="highlight jsonnet tab-jsonnet"><code><span class="p">{</span>
-  <span class="s">"status"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-  <span class="s">"message"</span><span class="p">:</span> <span class="s">"Payload valid"</span>
-<span class="p">}</span>
-</code></pre>
-<table><thead>
-<tr>
-<th style="text-align: right"></th>
-<th style="text-align: left"></th>
-</tr>
-</thead><tbody>
-<tr>
-<td style="text-align: right"><strong>status</strong><br> <font color="#939da3">integer</font></td>
-<td style="text-align: left">Код ответа.</td>
-</tr>
-<tr>
-<td style="text-align: right"><strong>message</strong><br> <font color="#939da3">string</font></td>
-<td style="text-align: left">Короткое текстовое описание ответа.</td>
-</tr>
-</tbody></table>
-<h2 id='finish'>Finish</h2><pre class="highlight ruby tab-ruby"><code><span class="no">POST</span> <span class="no">BASE_URL</span><span class="o">/</span><span class="n">factoring</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">precheck</span><span class="o">/</span><span class="n">finish?store_id</span><span class="o">=</span><span class="no">STORE_ID2</span><span class="o">&amp;</span><span class="n">signature</span><span class="o">=</span><span class="no">SIGNATURE</span>
-</code></pre>
-<p>Метод для финализации заказа путём передачи договора купли-продажи на обслуживание в Рево. Запрос должен быть отправлен c типом содержимого multipart/form-data. В запросе должны быть указаны два ключа. Первый ключ с названием <code>body</code>, в котором должно быть указано тело json запроса. Второй ключ с названием <code>check</code>, где прикладывается файл(фискальный документ). <code>Signature</code> формируется по основному принципу, без второго ключа.</p>
-
-<aside class="notice">
-При попытке финализации заявки с истекшим сроком `valid_till`, будет вызван метод `cancel`.
-</aside>
-<h3 id='parameters-8'>Parameters</h3>
-<blockquote>
-<p>Пример запроса в формате json</p>
-</blockquote>
-<pre class="highlight jsonnet tab-jsonnet"><code><span class="p">{</span>
-  <span class="s">"order_id"</span><span class="p">:</span> <span class="s">"R107356"</span><span class="p">,</span>
-  <span class="s">"amount"</span><span class="p">:</span> <span class="mf">6700.00</span><span class="p">,</span>
-  <span class="s">"check_number"</span><span class="p">:</span> <span class="s">"ZDDS3123F"</span>
-<span class="p">}</span>
-</code></pre>
-<table><thead>
-<tr>
-<th style="text-align: right"></th>
-<th style="text-align: left"></th>
-</tr>
-</thead><tbody>
-<tr>
-<td style="text-align: right"><strong>order_id</strong><br> <font color="#939da3">string</font></td>
-<td style="text-align: left">Уникальный номер заказа. Не более 255 символов.</td>
-</tr>
-<tr>
-<td style="text-align: right"><strong>amount</strong><br> <font color="#939da3">float</font></td>
-<td style="text-align: left">Сумма в рублях с копейками.</td>
-</tr>
-<tr>
-<td style="text-align: right"><strong>check_number</strong><br> <font color="#939da3">string</font></td>
-<td style="text-align: left">Номер фискального документа в системе партнёра (например, номер чека).</td>
-</tr>
-</tbody></table>
-<h3 id='response-parameters-8'>Response Parameters</h3>
-<blockquote>
-<p>Пример ответа, когда файл успешно подгружен</p>
-</blockquote>
-<pre class="highlight jsonnet tab-jsonnet"><code><span class="p">{</span>
-  <span class="s">"status"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-  <span class="s">"message"</span><span class="p">:</span> <span class="s">"Payload valid"</span>
-<span class="p">}</span>
-</code></pre>
-<table><thead>
-<tr>
-<th style="text-align: right"></th>
-<th style="text-align: left"></th>
-</tr>
-</thead><tbody>
-<tr>
-<td style="text-align: right"><strong>status</strong><br> <font color="#939da3">integer</font></td>
-<td style="text-align: left">Код ответа.</td>
-</tr>
-<tr>
-<td style="text-align: right"><strong>message</strong><br> <font color="#939da3">string</font></td>
-<td style="text-align: left">Короткое текстовое описание ответа.</td>
-</tr>
-</tbody></table>
-<h2 id='return'>Return</h2><pre class="highlight ruby tab-ruby"><code><span class="no">POST</span> <span class="no">BASE_URL</span><span class="o">/</span><span class="n">factoring</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="k">return</span><span class="p">?</span><span class="n">store_id</span><span class="o">=</span><span class="no">STORE_ID2</span><span class="o">&amp;</span><span class="n">signature</span><span class="o">=</span><span class="no">SIGNATURE</span>
+<h2 id='return'>Return</h2><pre class="highlight ruby tab-ruby"><code><span class="no">POST</span> <span class="no">BASE_URL</span><span class="o">/</span><span class="n">online</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="k">return</span><span class="p">?</span><span class="n">store_id</span><span class="o">=</span><span class="no">STORE_ID2</span><span class="o">&amp;</span><span class="n">signature</span><span class="o">=</span><span class="no">SIGNATURE</span>
 </code></pre>
 <p>Метод для осуществления процедуры полного или частичного возврата заказа. Возвращать можно только уже финализированный заказ. Если заказ ещё не финализирован, вместо возврата его необходимо отменить с помощью метода <a href="#cancel">Cancel</a>. Частичный возврат можно провести не ранее, чем на следующий день после финализации. При возврате средства на счёт клиента зачисляются в полном объёме, включая переплаты, если клиент уже совершал платежи для погашения рассрочки.</p>
-<h3 id='parameters-9'>Parameters</h3>
+<h3 id='parameters-6'>Parameters</h3>
 <blockquote>
 <p>Пример запроса в формате json</p>
 </blockquote>
@@ -1762,7 +1503,7 @@
 <td style="text-align: left">Сумма возврата в рублях с копейками. Возврат может быть как полным, так и частичным.</td>
 </tr>
 </tbody></table>
-<h3 id='response-parameters-9'>Response Parameters</h3>
+<h3 id='response-parameters-6'>Response Parameters</h3>
 <blockquote>
 <p>Пример ответа при успешной обработке запроса на возврат</p>
 </blockquote>
@@ -2117,57 +1858,6 @@
 
 <p>Тело JSON:
 <code>{&quot;callback_url&quot;:&quot;https://shop.ru/revo/decision&quot;,&quot;redirect_url&quot;:&quot;https://shop.ru/revo/redirect&quot;,&quot;primary_phone&quot;:&quot;9268180621&quot;,&quot;primary_email&quot;:&quot;ivan@gmail.com&quot;,&quot;current_order&quot;:{&quot;order_id&quot;:&quot;R001233&quot;}}</code></p>
-<h3 id='74e834851b'>Подробное описание отправки запроса на финализацию заказа</h3>
-<blockquote>
-<p>Пример формирования signature на ruby:</p>
-</blockquote>
-<pre class="highlight ruby tab-ruby--tab"><code><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="ss">order_id: </span><span class="s2">"FACTPRECHR00005384"</span><span class="p">,</span> <span class="ss">amount: </span><span class="mi">4999</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="ss">check_number: </span><span class="s2">"sdfhk"</span><span class="p">}</span>
- <span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:order_id</span><span class="o">=&gt;</span><span class="s2">"FACTPRECHR00005384"</span><span class="p">,</span> <span class="ss">:amount</span><span class="o">=&gt;</span><span class="mi">4999</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="ss">:check_number</span><span class="o">=&gt;</span><span class="s2">"sdfhk"</span><span class="p">}</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="nf">to_json</span>
- <span class="o">=&gt;</span> <span class="s2">"{</span><span class="se">\"</span><span class="s2">order_id</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">FACTPRECHR00005384</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">amount</span><span class="se">\"</span><span class="s2">:4999.0,</span><span class="se">\"</span><span class="s2">check_number</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">sdfhk</span><span class="se">\"</span><span class="s2">}"</span>
-<span class="n">secret_key</span> <span class="o">=</span> <span class="s2">"9fff8c602b08b00323567be0001480f6"</span>
- <span class="o">=&gt;</span> <span class="s2">"9fff8c602b08b00323567be0001480f6"</span>
-<span class="n">signature</span> <span class="o">=</span> <span class="no">Digest</span><span class="o">::</span><span class="no">SHA1</span><span class="p">.</span><span class="nf">hexdigest</span><span class="p">(</span><span class="n">data</span> <span class="o">+</span> <span class="n">secret_key</span><span class="p">)</span>
- <span class="o">=&gt;</span> <span class="s2">"70189f8a4f413fcb01c8933cae50f4341fe8fdee"</span>
-<span class="mi">2</span><span class="o">.</span><span class="mi">3</span><span class="o">.</span><span class="mi">3</span> <span class="p">:</span><span class="mo">012</span> <span class="o">&gt;</span> <span class="nb">puts</span> <span class="n">data</span>
-<span class="p">{</span><span class="s2">"order_id"</span><span class="ss">:"FACTPRECHR00005384"</span><span class="p">,</span><span class="s2">"amount"</span><span class="p">:</span><span class="mi">4999</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span><span class="s2">"check_number"</span><span class="ss">:"sdfhk"</span><span class="p">}</span>
-
-</code></pre>
-<blockquote>
-<p>Пример запроса через REST клиент POSTMAN:</p>
-
-<p><a href="post_finish.png" target="new"> <img src="post_finish.png"></a></p>
-</blockquote>
-
-<p>Для финализации заказа используется метод <a href="#finish">finish</a></p>
-
-<p>Необходимые параметры для финализации заказа:</p>
-
-<ul>
-<li>базовый URL для тестирования и отладки</li>
-<li>store_id</li>
-<li>signature</li>
-</ul>
-
-<p>Описание формирования запрос на финализацию заказа:</p>
-
-<ul>
-<li>В переменную <code>data</code> вводится тело json запроса</li>
-<li>Переводим   <code>data</code> в <code>json</code> формат</li>
-<li>В переменную <code>secret_key</code> вводим наименование ключа</li>
-<li>В переменную  <code>signature</code> формируем подпись</li>
-<li>Выводим тело <code>json</code> запроса через команду <code>puts</code> для отправки запроса через клиент</li>
-</ul>
-
-<p>Данные для отправки запроса в REST CLIENT:</p>
-
-<p>Используется POST URL:
-<code>https://demo.revoup.ru/factoring/v1/precheck/finish?store_id=72&amp;signature=70189f8a4f413fcb01c8933cae50f4341fe8fdee</code></p>
-
-<p>Тело JSON с key = body:
-<code>{&quot;order_id&quot;:&quot;FACTPRECHR00005384&quot;,&quot;amount&quot;:4999.0,&quot;check_number&quot;:&quot;sdfhk&quot;}</code></p>
-
-<p>Приложение фискального документа с key = check.</p>
 <h2 id='ad57058c12'>Особенности</h2>
       </div>
       <div class="dark-box">
