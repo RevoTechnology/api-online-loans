@@ -1439,43 +1439,33 @@
 </tr>
 <tr>
 <td style="text-align: left"><code>null</code></td>
+<td style="text-align: left"><code>null</code></td>
+<td style="text-align: left">Клиент открыл форму на этапе ввода номера телефона и отображением графика платежей или на экране с вводом персональных данных и подтверждением условий кодом из смс</td>
+</tr>
+<tr>
 <td style="text-align: left"><code>pending</code></td>
-<td style="text-align: left">Клиент не дошёл до конца оформления в форме. Решения о лимите не принято.</td>
+<td style="text-align: left"><code>null</code></td>
+<td style="text-align: left">Клиент находится на странице фотографирования паспортных данных или на странице отображения графика и подтверждения индивидуальных условий</td>
 </tr>
 <tr>
 <td style="text-align: left"><code>approved</code></td>
-<td style="text-align: left"><code>hold</code></td>
-<td style="text-align: left">Лимит одобрен, средства захолдированы, ожидается финализация заказа.</td>
+<td style="text-align: left"><code>null</code></td>
+<td style="text-align: left">Клиент дошел до конца процесса, где отображается информация об успешном совершении покупки</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>declined</code></td>
+<td style="text-align: left"><code>null</code></td>
+<td style="text-align: left">Клиент дошел до конца процесса, где отображается информация об отказе в одобрении заявки</td>
 </tr>
 <tr>
 <td style="text-align: left"><code>approved</code></td>
 <td style="text-align: left"><code>finished</code></td>
-<td style="text-align: left">Заказ финализирован. При последующем изменении <code>expired</code>, либо при частичном возврате значение <code>status</code> не поменяется.</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>approved</code></td>
-<td style="text-align: left"><code>canceled</code></td>
-<td style="text-align: left">Заказ отменен. При последующем изменении <code>expired</code> значение <code>status</code> не поменяется.</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>approved</code></td>
-<td style="text-align: left"><code>expired</code></td>
-<td style="text-align: left">Лимит одобрен, срок холдирования по заказу истёк.</td>
+<td style="text-align: left">Клиент оформил частичный возврат. В ответе, в ветке return_amounts указывается сумма частичного возврата</td>
 </tr>
 <tr>
 <td style="text-align: left"><code>approved</code></td>
 <td style="text-align: left"><code>refunded</code></td>
-<td style="text-align: left">Был произведен полный возврат средств по заказу. При частичном возврате <code>status</code> останется <code>finished</code>.</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>approved</code></td>
-<td style="text-align: left"><code>declined</code></td>
-<td style="text-align: left">Лимит одобрен, услуга оплаты частями не доступна клиенту (например, сумма заказа превышает лимит).</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>declined</code></td>
-<td style="text-align: left"><code>declined</code></td>
-<td style="text-align: left">В лимите отказано по политикам Рево.</td>
+<td style="text-align: left">Был произведен полный возврат средств по заказу.</td>
 </tr>
 </tbody></table>
 <h2 id='return'>Return</h2><pre class="highlight ruby tab-ruby"><code><span class="no">POST</span> <span class="no">BASE_URL</span><span class="o">/</span><span class="n">online</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="k">return</span><span class="p">?</span><span class="n">store_id</span><span class="o">=</span><span class="no">STORE_ID2</span><span class="o">&amp;</span><span class="n">signature</span><span class="o">=</span><span class="no">SIGNATURE</span>
