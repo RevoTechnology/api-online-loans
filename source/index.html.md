@@ -682,6 +682,51 @@ POST BASE_URL/factoring/v1/schedule?store_id=STORE_ID2&signature=SIGNATURE
     }
 }
 ```
+> Пример ответа, когда клиент сделал частичный возврат по заказу.
+
+```jsonnet
+{
+{
+    "status": 0,
+    "message": "Payload valid",
+    "current_order": {
+        "order_id": "ORDER-ONLINE-V2-R00002591",
+        "expired": false,
+        "status": "finished",
+        "decision": "approved",
+        "amount": 2989,
+        "term": 3,
+        "monthly_overpayment": 170.33,
+        "return_amounts": [
+            2010
+        ]
+    }
+}
+
+}
+
+```
+
+> Пример ответа, когда клиент сделал полный возврат.
+
+```jsonnet
+{
+    "status": 0,
+    "message": "Payload valid",
+    "current_order": {
+        "order_id": "ORDER-ONLINE-V2-R00002594",
+        "expired": "false",
+        "decision": "approved",
+        "amount": "0.00",
+        "term": 3,
+        "discount_amount": "4999.00",
+        "return_amounts": [
+            4999
+        ],
+        "status": "refunded"
+    }
+}
+```
 
  | | | |
  -:|-:|:-|:-
