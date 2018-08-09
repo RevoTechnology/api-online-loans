@@ -274,11 +274,6 @@
                   <li>
                     <a href="#ee363a7d6e" class="toc-h2 toc-link" data-title="">Оформление покупки</a>
                   </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#5a291e242a" class="toc-h1 toc-link" data-title="">Представление на сайте</a>
-              <ul class="toc-list-h2">
                   <li>
                     <a href="#iframe" class="toc-h2 toc-link" data-title="iframe">Вызов iFrame</a>
                   </li>
@@ -1470,7 +1465,7 @@
 </tbody></table>
 <h2 id='return'>Return</h2><pre class="highlight ruby tab-ruby"><code><span class="no">POST</span> <span class="no">BASE_URL</span><span class="o">/</span><span class="n">online</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="k">return</span><span class="p">?</span><span class="n">store_id</span><span class="o">=</span><span class="no">STORE_ID2</span><span class="o">&amp;</span><span class="n">signature</span><span class="o">=</span><span class="no">SIGNATURE</span>
 </code></pre>
-<p>Метод для осуществления процедуры полного или частичного возврата заказа. Возвращать можно только уже финализированный заказ. Если заказ ещё не финализирован, вместо возврата его необходимо отменить с помощью метода <a href="#cancel">Cancel</a>. Частичный возврат можно провести не ранее, чем на следующий день после финализации. При возврате средства на счёт клиента зачисляются в полном объёме, включая переплаты, если клиент уже совершал платежи для погашения рассрочки.</p>
+<p>Метод для осуществления процедуры полного или частичного возврата заказа. Частичный возврат можно провести не ранее, чем на следующий день после оформления. При возврате, средства на счёт клиента зачисляются в полном объёме, включая переплаты, если клиент уже совершал платежи для погашения рассрочки.</p>
 <h3 id='parameters-6'>Parameters</h3>
 <blockquote>
 <p>Пример запроса в формате json</p>
@@ -1752,8 +1747,10 @@
 <li>Отображение экрана результата с информационным сообщением об успешном оформлении заказа <br></li>
 <li>Отображение экрана результата с информационным сообщением об недоступности оплаты частями.</li>
 </ol>
-<h1 id='5a291e242a'>Представление на сайте</h1>
-<p>Рекомендации по представлению услуги Оплата частями на партёнрском сайте представлены в <a href="REVO Presentation.pdf" target="new">презентации</a>. Ниже приведены инструкции по реализации отдельных элементов Рево из презентации.</p>
+
+<!-- # Представление на сайте
+
+Рекомендации по представлению услуги Оплата частями на партёнрском сайте представлены в <a href="REVO Presentation.pdf" target="new">презентации</a>. Ниже приведены инструкции по реализации отдельных элементов Рево из презентации. -->
 <h2 id='iframe'>Вызов iFrame</h2><pre class="highlight javascript tab-javascript"><code><span class="nx">REVO</span><span class="p">.</span><span class="nx">Form</span><span class="p">.</span><span class="nx">show</span><span class="p">(</span><span class="nx">iframe_url</span><span class="p">,</span> <span class="nx">target_selector</span><span class="p">);</span>
 </code></pre>
 <p>По нажатию на кнопки &quot;Оформить за 1 минуту&quot;, &quot;?&quot; справа от надписи &quot;или 150 Р/мес&quot; и &quot;Оплата&quot; при выбранном способе &quot;Оплата частями&quot; необходимо вызвать iFrame Рево для регистрации и оформления заказа, соответственно. Для этого нужно получить с помощью метода <a href="#Registration"><code>Registration</code></a> или <a href="#Checkout"><code>Checkout</code></a> ссылку на iFrame и передать её в js метод плагина REVO.</p>
