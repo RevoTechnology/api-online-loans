@@ -1317,6 +1317,50 @@
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
+<blockquote>
+<p>Пример ответа, когда клиент сделал частичный возврат по заказу.</p>
+</blockquote>
+<pre class="highlight jsonnet tab-jsonnet"><code><span class="p">{</span>
+<span class="p">{</span>
+    <span class="s">"status"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s">"message"</span><span class="p">:</span> <span class="s">"Payload valid"</span><span class="p">,</span>
+    <span class="s">"current_order"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">"order_id"</span><span class="p">:</span> <span class="s">"ORDER-ONLINE-V2-R00002591"</span><span class="p">,</span>
+        <span class="s">"expired"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s">"status"</span><span class="p">:</span> <span class="s">"finished"</span><span class="p">,</span>
+        <span class="s">"decision"</span><span class="p">:</span> <span class="s">"approved"</span><span class="p">,</span>
+        <span class="s">"amount"</span><span class="p">:</span> <span class="mi">2989</span><span class="p">,</span>
+        <span class="s">"term"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s">"monthly_overpayment"</span><span class="p">:</span> <span class="mf">170.33</span><span class="p">,</span>
+        <span class="s">"return_amounts"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="mi">2010</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="p">}</span>
+
+</code></pre>
+<blockquote>
+<p>Пример ответа, когда клиент сделал полный возврат.</p>
+</blockquote>
+<pre class="highlight jsonnet tab-jsonnet"><code><span class="p">{</span>
+    <span class="s">"status"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s">"message"</span><span class="p">:</span> <span class="s">"Payload valid"</span><span class="p">,</span>
+    <span class="s">"current_order"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">"order_id"</span><span class="p">:</span> <span class="s">"ORDER-ONLINE-V2-R00002594"</span><span class="p">,</span>
+        <span class="s">"expired"</span><span class="p">:</span> <span class="s">"false"</span><span class="p">,</span>
+        <span class="s">"decision"</span><span class="p">:</span> <span class="s">"approved"</span><span class="p">,</span>
+        <span class="s">"amount"</span><span class="p">:</span> <span class="s">"0.00"</span><span class="p">,</span>
+        <span class="s">"term"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s">"discount_amount"</span><span class="p">:</span> <span class="s">"4999.00"</span><span class="p">,</span>
+        <span class="s">"return_amounts"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="mi">4999</span>
+        <span class="p">],</span>
+        <span class="s">"status"</span><span class="p">:</span> <span class="s">"refunded"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
 <table><thead>
 <tr>
 <th style="text-align: right"></th>
