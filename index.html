@@ -944,37 +944,25 @@
 <p><a name="callback_url"></a></p>
 <h3 id='callback-parameters-2'>Callback parameters</h3>
 <blockquote>
-<p>Пример callback-а при успешном оформлении товара:</p>
+<p>Пример callback-а при успешном оформлении заказа:</p>
 </blockquote>
 <pre class="highlight jsonnet tab-jsonnet"><code><span class="p">{</span>
-  <span class="s">"order_id"</span><span class="p">:</span> <span class="s">"R107356"</span><span class="p">,</span>
-  <span class="s">"decision"</span><span class="p">:</span> <span class="s">"approved"</span><span class="p">,</span>
-  <span class="s">"amount"</span><span class="p">:</span> <span class="mf">6700.00</span><span class="p">,</span>
-  <span class="s">"prepayment_amount"</span><span class="p">:</span> <span class="mf">1000.00</span><span class="p">,</span>
-  <span class="s">"total_amount"</span><span class="p">:</span> <span class="mf">7700.00</span><span class="p">,</span>
-  <span class="s">"term"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-  <span class="s">"client"</span><span class="p">:</span>
-  <span class="p">{</span>
-    <span class="s">"primary_phone"</span><span class="p">:</span> <span class="s">"8880010203"</span>
-    <span class="s">"email"</span><span class="p">:</span> <span class="s">"ivan@gmail.com"</span><span class="p">,</span>
-    <span class="s">"full_name"</span><span class="p">:</span> <span class="s">"Иванов Иван Иванович"</span><span class="p">,</span>
-    <span class="s">"first_name"</span><span class="p">:</span> <span class="s">"Иван"</span><span class="p">,</span>
-    <span class="s">"surname"</span><span class="p">:</span> <span class="s">"Иванов"</span><span class="p">,</span>
-    <span class="s">"patronymic"</span><span class="p">:</span> <span class="s">"Иванович"</span>
-  <span class="p">},</span>
-  <span class="s">"schedule"</span><span class="p">:</span>
-  <span class="p">[{</span>
-    <span class="s">"date"</span><span class="p">:</span> <span class="s">"01.01.2018"</span><span class="p">,</span>
-    <span class="s">"amount"</span><span class="p">:</span> <span class="mf">2933.33</span>
-  <span class="p">},</span>
-  <span class="p">{</span>
-    <span class="s">"date"</span><span class="p">:</span> <span class="s">"01.02.2018"</span><span class="p">,</span>
-    <span class="s">"amount"</span><span class="p">:</span> <span class="mf">2933.33</span>
-  <span class="p">},</span>
-  <span class="p">{</span>
-    <span class="s">"date"</span><span class="p">:</span> <span class="s">"01.03.2018"</span><span class="p">,</span>
-    <span class="s">"amount"</span><span class="p">:</span> <span class="mf">2933.33</span>
-  <span class="p">}]</span>
+    <span class="nx">order_id</span><span class="p">:</span> <span class="s">"R107356"</span><span class="p">,</span>
+    <span class="nx">decision</span><span class="p">:</span> <span class="s">"approved"</span><span class="p">,</span>
+    <span class="nx">amount</span><span class="p">:</span> <span class="s">"6700.00"</span><span class="p">,</span>
+    <span class="nx">discount_amount</span><span class="p">:</span> <span class="s">"6100.00"</span><span class="p">,</span>
+    <span class="nx">term</span><span class="p">:</span> <span class="s">"3"</span>
+<span class="p">}</span>
+</code></pre>
+<blockquote>
+<p>Пример callback-a при неуспешном оформлении заказа:</p>
+</blockquote>
+<pre class="highlight jsonnet tab-jsonnet"><code><span class="p">{</span>
+    <span class="nx">order_id</span><span class="p">:</span> <span class="s">"R107361"</span><span class="p">,</span>
+    <span class="nx">decision</span><span class="p">:</span> <span class="s">"declined"</span><span class="p">,</span>
+    <span class="nx">amount</span><span class="p">:</span> <span class="s">"0.00"</span><span class="p">,</span>
+    <span class="nx">discount_amount</span><span class="p">:</span> <span class="s">"0.00"</span><span class="p">,</span>
+    <span class="nx">term</span><span class="p">:</span> <span class="s">"6"</span>
 <span class="p">}</span>
 </code></pre>
 <table><thead>
