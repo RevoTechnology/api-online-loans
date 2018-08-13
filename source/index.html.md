@@ -810,24 +810,14 @@ POST BASE_URL/online/v1/return?store_id=STORE_ID2&signature=SIGNATURE
 **20** | Order `order_id` missing | Не указан `order_id`.
 **21** | Wrong order `order_id` format | Неверный формат `order_id`.
 **22** | Order exists | Заявка с данным `order_id` уже существует и финалзирована.
-**23** | Order expired | У заявки с данным `order_id` уже истёк холдирования.
-**24** | Order with specified id not found | Заявка с указанным `order_id` не найден.
 **30** | Wrong order `order_sum` format | Нверный формат `order_sum`.
-**32** | Order amount is different from the amount specified before | Указанная при финализации сумма заказа отличается от суммы, на которую совершен заказ. Финализация не осуществлена.
-**33** | Order amount is outside of tariff_limits | Сумма заявки не входит в диапазон, установленный в тарифе партнёра. Заявка не создана.
-**35** | Order prepayment amount is wrong | Величина `prepayment_amount` превосходит `amount`.
 **40** | Order `callback_url` missing | Не указан `callback_url`.
 **41** | Order `redirect_url` missing | Не указан `redirect_url`.
 **50** | Store id is missing | Не указан `store_id`.
 **51** | Store not found | Не найден магазин с идентификтором `store_id`.
 **60** | `Signature` missing | Не указана цифровая подпись `signature`.
 **61** | `Signature` wrong | Указанная цифровая подпись `signature` некорректна.
-**62** | Error saving file | Ошибка при сохранении файла.
 **70** | Phone number is different | Номер телефона отличается от указанного в заявке.
-**71** | Client has not enough limit | У клиента недостаточно средств для осуществления оплаты частями заказа.
-**80** | Unable to finish - order is already finished/canceled | Не удаётся финализировать заявку - заявка с указанным `order_id` уже финализирована или отменена.
-**81** | Unable to cancel - order is already finished/canceled | Не удаётся отменить заявку - заявка с указанным `order_id` уже финализирована или отменена.
-**82** | Unable to change - order is already finished/canceled | Не удаётся изменить заявку - заявка с указанным `order_id` уже финализирована или отменена.
 **90** | Cart items are missing | Не удаётся изменить заявку - не передана информация о корзине.
 **100** | At the moment the server cannot process your request | Во всех остальных случаях.
 
