@@ -440,38 +440,27 @@ POST BASE_URL/online/v2/auth?store_id=STORE_ID2&signature=SIGNATURE
 <a name="callback_url"></a>
 ### Callback parameters
 
-> Пример callback-а при успешном оформлении товара:
+> Пример callback-а при успешном оформлении заказа:
 
 ```jsonnet
 {
-  "order_id": "R107356",
-  "decision": "approved",
-  "amount": 6700.00,
-  "prepayment_amount": 1000.00,
-  "total_amount": 7700.00,
-  "term": 3,
-  "client":
-  {
-    "primary_phone": "8880010203"
-    "email": "ivan@gmail.com",
-    "full_name": "Иванов Иван Иванович",
-    "first_name": "Иван",
-    "surname": "Иванов",
-    "patronymic": "Иванович"
-  },
-  "schedule":
-  [{
-    "date": "01.01.2018",
-    "amount": 2933.33
-  },
-  {
-    "date": "01.02.2018",
-    "amount": 2933.33
-  },
-  {
-    "date": "01.03.2018",
-    "amount": 2933.33
-  }]
+    order_id: "R107356",
+    decision: "approved",
+    amount: "6700.00",
+    discount_amount: "6100.00",
+    term: "3"
+}
+```
+
+> Пример callback-a при неуспешном оформлении заказа:
+
+```jsonnet
+{
+    order_id: "R107361",
+    decision: "declined",
+    amount: "0.00",
+    discount_amount: "0.00",
+    term: "6"
 }
 ```
 
