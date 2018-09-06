@@ -128,7 +128,7 @@ public class Main {
 ## Registration
 
 ```ruby
-POST https://{BASE_URI}/iframe/v1/auth?store_id=STORE_ID1&signature=SIGNATURE
+POST https://{BASE_URI}/iframe/v2/auth?store_id=STORE_ID1&signature=SIGNATURE
 ```
 
 Метод возвращает ссылку на iFrame для получения лимита. По завершению формы на адрес указанный в `callback_url` отправляется <a href="#callback_url2">json ответ</a> с результатом решения по лимиту клиента.
@@ -331,7 +331,7 @@ POST BASE_URL/api/external/v1/client/limit?store_id=STORE_ID1&signature=SIGNATUR
 POST BASE_URL/online/v2/auth?store_id=STORE_ID2&signature=SIGNATURE
 ```
 
-Метод возвращает ссылку на iFrame для оформления заказа клиента. По завершению формы на адрес указанный в `callback_url` отправляется <a href="#callback_url">json ответ</a> с результатом оформления. В случае успешного оформления, средства в размере `sum` холдируются на счёте клиента в системе Рево.
+Метод возвращает ссылку на iFrame для оформления заказа клиента. По завершению формы на адрес указанный в `callback_url` отправляется <a href="#callback_url">json ответ</a> с результатом оформления. В случае успешного оформления, средства в размере `sum` холдируются на счёт е клиента в системе Рево.
 
 В зависимости от информации, которая есть о пользователе в системе Рево, форма будет иметь различное число шагов (для этого нужно передавать `primary_phone`) - см. <a href="#iframe-revo">Описание iFrame REVO</a>.
 
@@ -599,7 +599,7 @@ POST BASE_URL/factoring/v1/schedule?store_id=STORE_ID2&signature=SIGNATURE
 ## Status
 
  ```ruby
- POST BASE_URL/factoring/v1/status?store_id=STORE_ID2&signature=SIGNATURE
+ POST BASE_URL/online/v1/status?store_id=1&signature=YOUR_GENERATED_SHA1
  ```
 
  Метод возвращает информацию по статусу заказа.
