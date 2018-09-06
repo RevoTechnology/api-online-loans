@@ -409,7 +409,7 @@
 <aside class="notice">
 Необходимо обратить внимание, что при формировании signature длина всегда будет 40 символов по SHA1.
 </aside>
-<h1 id='api'>Методы API</h1><h2 id='registration'>Registration</h2><pre class="highlight ruby tab-ruby"><code><span class="no">POST</span> <span class="n">https</span><span class="ss">:/</span><span class="o">/</span><span class="p">{</span><span class="no">BASE_URI</span><span class="p">}</span><span class="o">/</span><span class="n">iframe</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">auth?store_id</span><span class="o">=</span><span class="no">STORE_ID1</span><span class="o">&amp;</span><span class="n">signature</span><span class="o">=</span><span class="no">SIGNATURE</span>
+<h1 id='api'>Методы API</h1><h2 id='registration'>Registration</h2><pre class="highlight ruby tab-ruby"><code><span class="no">POST</span> <span class="n">https</span><span class="ss">:/</span><span class="o">/</span><span class="p">{</span><span class="no">BASE_URI</span><span class="p">}</span><span class="o">/</span><span class="n">iframe</span><span class="o">/</span><span class="n">v2</span><span class="o">/</span><span class="n">auth?store_id</span><span class="o">=</span><span class="no">STORE_ID1</span><span class="o">&amp;</span><span class="n">signature</span><span class="o">=</span><span class="no">SIGNATURE</span>
 </code></pre>
 <p>Метод возвращает ссылку на iFrame для получения лимита. По завершению формы на адрес указанный в <code>callback_url</code> отправляется <a href="#callback_url2">json ответ</a> с результатом решения по лимиту клиента.</p>
 
@@ -716,7 +716,7 @@
 </tbody></table>
 <h2 id='checkout'>Checkout</h2><pre class="highlight ruby tab-ruby"><code><span class="no">POST</span> <span class="no">BASE_URL</span><span class="o">/</span><span class="n">online</span><span class="o">/</span><span class="n">v2</span><span class="o">/</span><span class="n">auth?store_id</span><span class="o">=</span><span class="no">STORE_ID2</span><span class="o">&amp;</span><span class="n">signature</span><span class="o">=</span><span class="no">SIGNATURE</span>
 </code></pre>
-<p>Метод возвращает ссылку на iFrame для оформления заказа клиента. По завершению формы на адрес указанный в <code>callback_url</code> отправляется <a href="#callback_url">json ответ</a> с результатом оформления. В случае успешного оформления, средства в размере <code>sum</code> холдируются на счёте клиента в системе Рево.</p>
+<p>Метод возвращает ссылку на iFrame для оформления заказа клиента. По завершению формы на адрес указанный в <code>callback_url</code> отправляется <a href="#callback_url">json ответ</a> с результатом оформления. В случае успешного оформления, средства в размере <code>sum</code> холдируются на счёт е клиента в системе Рево.</p>
 
 <p>В зависимости от информации, которая есть о пользователе в системе Рево, форма будет иметь различное число шагов (для этого нужно передавать <code>primary_phone</code>) - см. <a href="#iframe-revo">Описание iFrame REVO</a>.</p>
 
@@ -1228,7 +1228,7 @@
 <td style="text-align: left"></td>
 </tr>
 </tbody></table>
-<h2 id='status'>Status</h2><pre class="highlight ruby tab-ruby"><code> <span class="no">POST</span> <span class="no">BASE_URL</span><span class="o">/</span><span class="n">factoring</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">status?store_id</span><span class="o">=</span><span class="no">STORE_ID2</span><span class="o">&amp;</span><span class="n">signature</span><span class="o">=</span><span class="no">SIGNATURE</span>
+<h2 id='status'>Status</h2><pre class="highlight ruby tab-ruby"><code> <span class="no">POST</span> <span class="no">BASE_URL</span><span class="o">/</span><span class="n">online</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">status?store_id</span><span class="o">=</span><span class="mi">1</span><span class="o">&amp;</span><span class="n">signature</span><span class="o">=</span><span class="no">YOUR_GENERATED_SHA1</span>
 </code></pre>
 <p>Метод возвращает информацию по статусу заказа.</p>
 <h3 id='parameters-5'>Parameters</h3>
