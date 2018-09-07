@@ -430,7 +430,7 @@ POST BASE_URL/online/v2/auth?store_id=STORE_ID2&signature=SIGNATURE
 {
   "status": 0,
   "message": "Payload valid",
-  "iframe_url": "https://revo.ru/factoring/v1/form/6976174c5b6a1bb089d15b80e0a6afc62d4283fe"
+  "iframe_url": "https://revo.ru/online/v2/form/6976174c5b6a1bb089d15b80e0a6afc62d4283fe"
 }
 ```
 
@@ -1020,7 +1020,7 @@ puts data
 Данные для отправки запроса в REST CLIENT:
 
 Используется POST URL:
-`https://demo.revoup.ru/factoring/v1/limit/auth?store_id=72&signature=347e8cff27d30b5200c8b32def4365ebbf4270d0`
+`https://demo.revoup.ru/online/v1/limit/auth?store_id=72&signature=347e8cff27d30b5200c8b32def4365ebbf4270d0`
 
 Тело JSON:
 `{"callback_url":"https://shop.ru/revo/decision","redirect_url":"https://shop.ru/revo/redirect","primary_phone":"9268180621","primary_email":"ivan@gmail.com","current_order":{"order_id":"R001233"}}`
