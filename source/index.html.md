@@ -32,12 +32,12 @@ API Online Loans реализовано на протоколе HTTPS на ос�
 
 ```javascript
 BASE_URL = "https://r.revo.ru/"
-BASE_URL = "https://backend.demo.revoup.ru,/"
+BASE_URL = "https://backend.demo.revoup.ru/"
 ```
 
 1. Для взаимодействия с сервисами Рево используются 2 базовых адреса:
  * https://r.revo.ru/ - адрес `production` сервиса.
- * https://demo.revoup.ru/ - адрес `demo` сервиса.
+ * https://backend.demo.revoup.ru/ - адрес `demo` сервиса.
 2. `BASE_URL` - переменная обозначающая базовый адрес.
 
 <aside class="notice">
@@ -1020,7 +1020,7 @@ puts data
 Данные для отправки запроса в REST CLIENT:
 
 Используется POST URL:
-`https://demo.revoup.ru/online/v1/limit/auth?store_id=72&signature=347e8cff27d30b5200c8b32def4365ebbf4270d0`
+`https://backend.demo.revoup.ru/online/v1/limit/auth?store_id=72&signature=347e8cff27d30b5200c8b32def4365ebbf4270d0`
 
 Тело JSON:
 `{"callback_url":"https://shop.ru/revo/decision","redirect_url":"https://shop.ru/revo/redirect","primary_phone":"9268180621","primary_email":"ivan@gmail.com","current_order":{"order_id":"R001233"}}`
